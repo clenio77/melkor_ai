@@ -1,0 +1,75 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>{{ title|default:"Documentação da API Melkor" }}</h2>
+<p>Bem-vindo à documentação da API do Sistema Melkor.</p>
+
+<section>
+    <h3>Autenticação</h3>
+    <p>A API Melkor utiliza autenticação baseada em token. Cada cliente registrado no sistema possui um token de acesso único que deve ser incluído no cabeçalho de cada requisição.</p>
+    <pre><code>Authorization: Token SEU_TOKEN_DE_ACESSO</code></pre>
+</section>
+
+<section>
+    <h3>Endpoints Disponíveis</h3>
+    <p>A seguir, a lista de endpoints da API e como utilizá-los.</p>
+    
+    <h4>1. Análise de Denúncia (Exemplo)</h4>
+    <p><strong>POST</strong> <code>/api/v1/analise/denuncia/</code></p>
+    <p>Este endpoint recebe o texto de uma denúncia e retorna uma análise preliminar, identificando possíveis pontos fracos.</p>
+    <p><strong>Corpo da Requisição (JSON):</strong></p>
+    <pre><code>{
+    "texto_denuncia": "Conteúdo completo do texto da denúncia..."
+}</code></pre>
+    <p><strong>Resposta de Sucesso (200 OK):</strong></p>
+    <pre><code>{
+    "id_analise": "uuid_da_analise",
+    "pontos_fracos": [
+        "Ponto fraco identificado 1",
+        "Ponto fraco identificado 2"
+    ],
+    "status": "concluida"
+}</code></pre>
+    <p><strong>Resposta de Erro (Ex: 401 Unauthorized, 400 Bad Request):</strong></p>
+    <pre><code>{
+    "detail": "Mensagem de erro específica."
+}</code></pre>
+
+    <h4>2. Consulta de Jurisprudência (Exemplo)</h4>
+    <p><strong>GET</strong> <code>/api/v1/jurisprudencia/</code></p>
+    <p>Este endpoint permite buscar jurisprudência com base em termos de pesquisa.</p>
+    <p><strong>Parâmetros da Query:</strong></p>
+    <ul>
+        <li><code>q</code> (obrigatório): Termo de busca.</li>
+        <li><code>site</code> (opcional): Especifica o site para busca (jusbrasil, stf, stj, tjmg). Padrão: todos.</li>
+        <li><code>max_results</code> (opcional): Número máximo de resultados. Padrão: 5.</li>
+    </ul>
+    <p><strong>Exemplo de Requisição:</strong></p>
+    <pre><code>GET /api/v1/jurisprudencia/?q=homicidio+qualificado&site=jusbrasil</code></pre>
+    <p><strong>Resposta de Sucesso (200 OK):</strong></p>
+    <pre><code>{
+    "resultados": [
+        {
+            "titulo": "Título da jurisprudência 1",
+            "link": "URL para a jurisprudência",
+            "resumo": "Resumo da decisão...",
+            "fonte": "JusBrasil",
+            "data_publicacao": "DD/MM/AAAA"
+        }
+    ]
+}</code></pre>
+    
+    {% comment %}
+    Adicionar mais endpoints conforme forem definidos e implementados.
+    - Endpoint para submeter denúncia para análise completa pelos agentes.
+    - Endpoint para obter status de uma análise em progresso.
+    - Endpoint para formular perguntas estratégicas.
+    - Endpoint para gerar teses de defesa.
+    {% endcomment %}
+</section>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'core:dashboard' %}">Voltar para o Dashboard</a>
+</div>
+{% endblock %}
+

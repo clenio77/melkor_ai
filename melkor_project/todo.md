@@ -1,0 +1,13 @@
+- [x] Analisar os arquivos de referência (`pasted_content.txt`, `Menu.pdf`, `Instruções de análise.pdf`, `1 - Persona Melkor 3.0.docx.pdf`).
+- [x] Elaborar e enviar perguntas de clarificação para o usuário.
+- [x] Aguardar e processar todas as respostas de clarificação do usuário.
+- [x] Desenvolver a estrutura da `Tool para Análise de Denúncia` (`tool_analise_denuncia.py` - parte inicial).
+- [x] Desenvolver a estrutura inicial da interface web com Django e integração com PostgreSQL.
+- [x] Validar o código da estrutura Django/PostgreSQL com base nas diretrizes.
+- [x] Reportar e entregar o código da estrutura Django/PostgreSQL ao usuário.
+- [x] Planejar e desenvolver a estrutura dos componentes de inteligência (persona, parser PDF, ferramenta de jurisprudência base, estrutura dos agentes CrewAI).
+- [x] Validar e integrar (conceitualmente) os componentes de inteligência.
+- [x] Entregar o código final dos componentes de inteligência e documentação ao usuário.
+- [x] Transformar o sistema Melkor em um site completo (painel admin aprimorado, dashboard com espaço para estatísticas, gerenciamento de clientes aprimorado, página de documentação da API, página com guia de integração ChatGPT).
+- [x] Ajustar configurações do Django para produção (segurança, banco de dados, arquivos estáticos, WSGI/ASGI server) e preparar documentação de implantação (incluindo Dockerfile).
+- [x] Reportar a impossibilidade de implantação Docker neste ambiente, orientar sobre alternativas e preparar documentação final.

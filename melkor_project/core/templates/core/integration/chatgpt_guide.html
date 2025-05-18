@@ -1,0 +1,106 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>{{ title|default:"Guia de Integração com ChatGPT (Agentes Inteligentes)" }}</h2>
+<p>Este guia descreve como integrar os agentes inteligentes do Sistema Melkor com o ChatGPT ou outras plataformas de IA generativa.</p>
+
+<section>
+    <h3>Visão Geral da Integração</h3>
+    <p>A integração é realizada através da API do Sistema Melkor. Seus agentes ChatGPT podem fazer requisições HTTP para os endpoints da API Melkor para obter análises de denúncias, buscar jurisprudência, formular perguntas estratégicas e gerar teses de defesa.</p>
+    <p>É crucial que a chave de API (token de acesso) seja gerenciada de forma segura e incluída em todas as requisições, conforme detalhado na <a href="#">Documentação da API</a>.</p> {# Link para api_docs.html precisa ser ajustado com a URL correta #}
+</section>
+
+<section>
+    <h3>Passos para Integração</h3>
+    <ol>
+        <li>
+            <strong>Obtenha seu Token de Acesso:</strong>
+            <p>Cada cliente (advogado/escritório) registrado no Sistema Melkor recebe um token de acesso único. Este token deve ser usado para autenticar todas as chamadas à API. Você pode encontrar seu token no seu painel de cliente ou entrando em contato com o suporte.</p>
+        </li>
+        <li>
+            <strong>Configure seu Agente ChatGPT:</strong>
+            <p>No ambiente de desenvolvimento do seu agente ChatGPT (por exemplo, usando OpenAI Assistants API, LangChain, ou similar), você precisará configurar a capacidade de fazer chamadas HTTP externas (ações personalizadas, tools, etc.).</p>
+        </li>
+        <li>
+            <strong>Chamando os Endpoints da API Melkor:</strong>
+            <p>Utilize os endpoints documentados na <a href="#">Documentação da API</a> para interagir com o Sistema Melkor. Por exemplo, para analisar uma denúncia:</p>
+            <pre><code>
+# Exemplo de chamada em Python usando a biblioteca requests
+import requests
+import json
+
+MELKOR_API_URL = "URL_BASE_DA_API_MELKOR" # Ex: https://api.melkor.jur.br/api/v1
+API_TOKEN = "SEU_TOKEN_DE_ACESSO"
+
+headers = {
+    "Authorization": f"Token {API_TOKEN}",
+    "Content-Type": "application/json"
+}
+
+endpoint_analise = f"{MELKOR_API_URL}/analise/denuncia/"
+
+dados_denuncia = {
+    "texto_denuncia": "O conteúdo completo da denúncia vai aqui..."
+}
+
+try:
+    response = requests.post(endpoint_analise, headers=headers, json=dados_denuncia, timeout=60)
+    response.raise_for_status() # Levanta um erro para códigos HTTP 4xx/5xx
+    
+    resultado_analise = response.json()
+    print("Análise Recebida:")
+    print(json.dumps(resultado_analise, indent=4, ensure_ascii=False))
+    
+    # Use os 'pontos_fracos' no seu agente ChatGPT
+    # pontos_fracos = resultado_analise.get("pontos_fracos", [])
+
+except requests.exceptions.HTTPError as http_err:
+    print(f"Erro HTTP: {http_err}")
+    print(f"Resposta do servidor: {response.text}")
+except requests.exceptions.RequestException as req_err:
+    print(f"Erro na Requisição: {req_err}")
+except json.JSONDecodeError:
+    print(f"Erro ao decodificar JSON da resposta: {response.text}")
+            </code></pre>
+        </li>
+        <li>
+            <strong>Processando as Respostas:</strong>
+            <p>As respostas da API Melkor virão em formato JSON. Seu agente ChatGPT deve ser capaz de parsear essas respostas e utilizar as informações para enriquecer suas próprias análises e interações.</p>
+            <p>Por exemplo, os "pontos fracos" identificados pela API podem ser usados pelo seu agente para formular argumentos de defesa ou para questionar a acusação.</p>
+        </li>
+        <li>
+            <strong>Considerações de Segurança e Limites de Uso:</strong>
+            <p>Monitore o uso da sua chave de API. Dependendo do seu plano de cliente, pode haver limites de requisições. A API também pode implementar rate limiting para prevenir abusos.</p>
+            <p>Nunca exponha sua chave de API no código do lado do cliente ou em repositórios públicos.</p>
+        </li>
+    </ol>
+</section>
+
+<section>
+    <h3>Exemplo de Prompt para Agente ChatGPT</h3>
+    <p>Ao integrar com um agente ChatGPT, você pode instruí-lo a usar a API Melkor da seguinte forma (exemplo conceitual):</p>
+    <pre><code>
+Você é um assistente jurídico avançado.
+
+Tarefa: Analisar a denúncia fornecida pelo usuário e identificar os pontos fracos da acusação.
+
+Instruções:
+1. Receba o texto da denúncia do usuário.
+2. Utilize a ferramenta "AnalisadorDeDenunciaMelkorAPI" para enviar o texto da denúncia para o Sistema Melkor.
+   - Endpoint: /api/v1/analise/denuncia/
+   - Método: POST
+   - Corpo: {"texto_denuncia": "[texto da denúncia aqui]"}
+   - Autenticação: Use o Token de Acesso fornecido.
+3. Receba a lista de pontos fracos identificados pelo Sistema Melkor.
+4. Apresente esses pontos fracos ao usuário de forma clara e organizada.
+5. Com base nesses pontos, sugira possíveis linhas de argumentação para a defesa.
+
+Lembre-se de sempre verificar se a chamada à API foi bem-sucedida e tratar possíveis erros.
+</code></pre>
+</section>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'core:dashboard' %}">Voltar para o Dashboard</a>
+</div>
+{% endblock %}
+

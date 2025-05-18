@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.so
+
+# Ambientes virtuais
+venv/
+.env/
+.env
+
+# Configurações e segredos
+*.env
+*.env.*
+!.env.example
+
+# Arquivos de banco de dados locais
+*.sqlite3
+*.db
+
+# Arquivos de log
+*.log
+logs/
+
+# Arquivos de cache
+*.cache
+*.pot
+*.mo
+
+# Arquivos de mídia e estáticos gerados
+media/
+staticfiles/
+static/
+
+# VSCode
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Outros
+*.bak
+*.swp
+*.tmp

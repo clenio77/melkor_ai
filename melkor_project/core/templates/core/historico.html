@@ -1,0 +1,46 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>{{ title }}</h2>
+<p>Histórico de pesquisas realizadas no sistema Melkor.</p>
+
+{% if historico %}
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Data</th>
+                <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Termo Pesquisado</th>
+                <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Vara</th>
+                <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Resumo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in historico %}
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #ddd;">{{ item.timestamp|date:"d/m/Y H:i" }}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">{{ item.termo_pesquisado }}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">{{ item.vara|default:"N/A" }}</td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">{{ item.resultado_resumido|default:"Sem resumo disponível"|truncatechars:100 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Nenhum histórico de pesquisa encontrado.</p>
+{% endif %}
+
+<div style="margin-top: 20px;">
+    <h3>Filtrar por Vara</h3>
+    <form method="get" action="{% url 'core:historico_pesquisas' %}">
+        <input type="text" name="vara" placeholder="Digite a vara para filtrar" value="{{ request.GET.vara|default:'' }}">
+        <button type="submit">Filtrar</button>
+        {% if request.GET.vara %}
+            <a href="{% url 'core:historico_pesquisas' %}">Limpar filtro</a>
+        {% endif %}
+    </form>
+</div>
+
+<div style="margin-top: 20px;">
+    <a href="{% url 'core:dashboard' %}">Voltar para o Dashboard</a>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title|default:"Melkor - Sistema Jurídico" }}</title>
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Melkor Jurídico</div>
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'core:dashboard' %}">Dashboard</a></li>
+                        <li><a href="{% url 'core:historico_pesquisas' %}">Histórico</a></li>
+                        <li><a href="{% url 'core:api_documentation' %}">Documentação API</a></li>
+                        <li><a href="{% url 'core:chatgpt_integration_guide' %}">Guia Integração</a></li>
+                        <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                        <li><a href="#">Logout</a></li> {# Placeholder para logout #}
+                    {% else %}
+                        <li><a href="#">Login</a></li> {# Placeholder para login #}
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="container">
+            {% block content %}
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="card-title">Bem-vindo ao Sistema Melkor</h1>
+                </div>
+                <p>Sua plataforma inteligente de análise e estratégia jurídica.</p>
+            </div>
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {% now "Y" %} Sistema Melkor. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    {% comment %} Adicionar links para JS futuramente, se necessário {% endcomment %}
+</body>
+</html>
+

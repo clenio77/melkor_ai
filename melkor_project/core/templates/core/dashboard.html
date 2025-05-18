@@ -1,0 +1,76 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2 class="card-title">{{ title }}</h2>
+    </div>
+    <p>Bem-vindo ao seu dashboard, {{ user.username }}.</p>
+    <p>Aqui você poderá iniciar novas análises, ver um resumo de atividades recentes e acessar as principais funcionalidades do sistema Melkor.</p>
+
+    <div class="dashboard-stats">
+        <div class="stat-card">
+            <h3>Análises Realizadas</h3>
+            <div class="number">0</div> {# Placeholder #}
+            <p>Total de denúncias analisadas</p>
+        </div>
+        <div class="stat-card">
+            <h3>Jurisprudências Consultadas</h3>
+            <div class="number">0</div> {# Placeholder #}
+            <p>Total de consultas à base</p>
+        </div>
+        <div class="stat-card">
+            <h3>Teses Geradas</h3>
+            <div class="number">0</div> {# Placeholder #}
+            <p>Total de teses de defesa criadas</p>
+        </div>
+    </div>
+
+    <section>
+        <h3>Ações Rápidas</h3>
+        <p><a href="#" class="btn btn-primary">Iniciar Nova Análise de Denúncia</a> (Funcionalidade a ser implementada)</p>
+        <p><a href="{% url 'core:historico_pesquisas' %}" class="btn">Ver Histórico Completo de Pesquisas</a></p>
+    </section>
+
+    <section style="margin-top: 20px;">
+        <h3>Últimas Pesquisas (Exemplo)</h3>
+        {% if user.is_authenticated %}
+            <div id="ultimas-pesquisas-container">
+                <p>Carregando últimas pesquisas...</p> {# Placeholder #}
+            </div>
+            <p><a href="{% url 'core:api_historico' %}" target="_blank">Acessar API de Histórico (JSON)</a> (Para fins de desenvolvimento)</p>
+        {% endif %}
+    </section>
+</div>
+
+<script>
+    // Exemplo de como carregar dados da API de histórico no futuro
+    /*
+    document.addEventListener("DOMContentLoaded", function() {
+        fetch("{% url 'core:api_historico' %}")
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById("ultimas-pesquisas-container");
+                if (data.historico && data.historico.length > 0) {
+                    let html = "<ul class='list-group'>";
+                    data.historico.slice(0, 5).forEach(item => {
+                        html += `<li class='list-group-item'><strong>${item.termo}</strong> (${item.timestamp}) - Vara: ${item.vara}</li>`;
+                    });
+                    html += "</ul>";
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = "<p>Nenhuma pesquisa recente para exibir.</p>";
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao carregar histórico:", error);
+                const container = document.getElementById("ultimas-pesquisas-container");
+                container.innerHTML = "<p>Erro ao carregar últimas pesquisas.</p>";
+            });
+    });
+    */
+</script>
+
+{% endblock %}
+
