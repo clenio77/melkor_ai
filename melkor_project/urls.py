@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('melkor_project.core.urls')),
-    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('melkor_project.accounts.urls')),
     # Outras URLs...
 ]
 
