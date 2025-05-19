@@ -30,8 +30,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
-    'core',
+    'melkor_project.accounts',
+    'melkor_project.core',
     # Outros apps...
 ]
 
