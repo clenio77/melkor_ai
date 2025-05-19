@@ -8,3 +8,4 @@ whitenoise>=6.4.0
 gunicorn>=21.2.0
 python-dotenv>=1.0.0
 dj-database-url>=2.0.0  # Adicione esta linha para facilitar a integração com o Render
+dj-database-url==2.3.0
