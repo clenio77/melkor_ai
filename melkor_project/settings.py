@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     # Outros apps...
 ]
 
+ROOT_URLCONF = 'melkor_project.urls'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Adicione esta linha para servir arquivos estáticos
