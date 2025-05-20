@@ -9,4 +9,8 @@ pip install -r requirements.txt
 python manage.py collectstatic --no-input
 
 # Aplicar migrações do banco de dados
-python manage.py migrate
+python manage.py migrate --no-input
+
+python manage.py create_superuser
+
+gunicorn melkor_project.wsgi:application
