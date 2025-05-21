@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+{% block content %}
+<h2>Análise de Nova Denúncia</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="texto_denuncia">Texto da Denúncia:</label>
+        <textarea id="texto_denuncia" name="texto" class="form-control" rows="10" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Iniciar Análise</button>
+</form>
+{% endblock %}

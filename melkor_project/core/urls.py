@@ -12,6 +12,7 @@ urlpatterns = [
     path("api/historico/", views.api_historico, name="api_historico"),
     path("documentacao/api/", views.api_documentation, name="api_documentation"),
     path("integracao/chatgpt/", views.chatgpt_integration_guide, name="chatgpt_integration_guide"),
+    path('analise-denuncia/', views.analise_denuncia_view, name='analise_denuncia'),
     # Adicionar outras URLs para funcionalidades do core
 ]
 

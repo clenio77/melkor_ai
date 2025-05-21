@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import HistoricoPesquisa
+from melkor.agente import analista_acusacao  # Importe seu agente
 
 def placeholder_view_core(request):
     return HttpResponse("Placeholder para views do app Core. (Ex: dashboard, histórico de pesquisas, etc.)")
@@ -66,4 +67,14 @@ def chatgpt_integration_guide(request):
     return render(request, 'core/integration/chatgpt_guide.html', {
         'title': 'Guia de Integração ChatGPT - Melkor',
     })
+
+@login_required
+def analise_denuncia_view(request):
+    resultado = None
+    if request.method == "POST":
+        texto = request.POST.get("texto")
+        # Aqui você chama o agente (ajuste conforme sua lógica)
+        # Exemplo: resultado = analista_acusacao.analisar(texto)
+        resultado = f"Análise feita para: {texto[:50]}..."  # Placeholder
+    return render(request, "core/analise_denuncia.html", {"resultado": resultado})
 
