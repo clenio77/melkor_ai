@@ -9,7 +9,7 @@ Inclui:
 """
 
 from crewai import Agent, Task, Crew, Process
-from crewai_tools import BaseTool # Se formos criar tools customizadas para CrewAI
+#from crewai_tools import BaseTool # Se formos criar tools customizadas para CrewAI
 
 # Importar as ferramentas desenvolvidas e a persona
 from melkor.persona import PersonaMelkor
