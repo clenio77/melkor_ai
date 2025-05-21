@@ -39,4 +39,4 @@ RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 # Comando para iniciar o servidor
-MD ["gunicorn", "--workers", "1", "--bind", "0.0.0.0:8000", "melkor_project.wsgi:application"]
+CMD ["gunicorn", "--workers", "1", "--timeout", "120", "--bind", "0.0.0.0:8000", "melkor_project.wsgi:application"]
